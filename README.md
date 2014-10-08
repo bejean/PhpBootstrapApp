@@ -3,10 +3,10 @@ PHP Bootstrap application
 Simple PHP application
 
 * MVC model
-* jquery 2.x
+* jquery 1.x
 * twitter bootstrap 3
 * themes
-* support for : configuration, labels, users
+* support for : configuration, labels, users, ajax
 
 
 Installation
