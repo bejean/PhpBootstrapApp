@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<solr_debug>1</solr_debug>
+	<solr_dump>0</solr_dump>
+	<log_debug>0</log_debug>
+	<log_debug_file>/tmp/web.log</log_debug_file>
+
+	<db>
+		<adapter>mysql</adapter>
+		<host>localhost</host>
+		<port></port>
+		<dbname></dbname>
+		<username></username>
+		<password></password>
+	</db>
+	
+	<solr>
+		<host>localhost</host>
+		<port>8180</port>
+		<baseurl>/solr</baseurl>
+		<corename>/core1</corename>
+	</solr>
+	
+	<search>
+		<_global_nbcar>0</_global_nbcar>
+				
+		<!--  http://wiki.apache.org/solr/ExtendedDisMax -->
+		<!--solr_edismax_qf>simple_pleiade^2.0 simple_pleiade_stem^2.0</solr_edismax_qf-->          
+		<solr_edismax_qf>simple_pleiade^2.0 simple_pleiade_stem^2.0 nature_uai_libe_txt^10.0 secteur_public_prive_libe_txt^5.0 ministere_tutelle_libe_txt^4.0</solr_edismax_qf>          
+		<!--solr_edismax_mm>0&lt;1 5&lt;-1 9&lt;-2</solr_edismax_mm-->          
+		<solr_edismax_mm>100%</solr_edismax_mm>          		
+	</search>
+	 	
+	<log>
+		<screen>1</screen>
+	</log>
+ 	
+</config>

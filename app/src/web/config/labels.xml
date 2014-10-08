@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels>
+
+<!-- 
+	Paramètres de debugging
+		* trace : fait afficher une "*" avant les libellés dans l'interface utilisateur (pratique pour voir les libellé qui ne sont pas issus de ce fichier)
+		* show_key : fait afficher les clés des labels au lieu des libéllés (pratique pour connaitre la clé d'un libellé à modifier)
+-->
+	<trace>0</trace>
+	<show_key>0</show_key>
+	
+	<title>Title ...</title>
+	<title_logo>Title logo ...</title_logo>
+	<alt_logo>Alt logo ...</alt_logo>
+
+</labels>

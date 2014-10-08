@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<version>1.10</version>
+
+<!-- 
+	Ce groupe de paramètres indique comment accéder au core Solr.
+	Bien que présent ici, ces paramètres sont à positionner dans config-2.xml.
+-->
+	<solr>
+		<host></host>
+		<port></port>
+		<baseurl></baseurl>
+		<corename></corename>
+	</solr>
+
+<!-- 
+	Ce groupe de paramètres indique comment accéder à la base de données Oracle.
+	Bien que présent ici, ces paramètres sont à positionner dans config-2.xml.
+-->
+	<db>
+		<adapter></adapter>
+		<host></host>
+		<port></port>
+		<dbname></dbname>
+		<username></username>
+		<password></password>
+	</db>
+
+	<search>
+		<!-- 
+			Paramètres isolés
+				* page_size_allowed : liste des valeurs possibles pour le nombre d'établissement par page de résultats 
+				* page_size_default : valeur par défaut pour le nombre d'établissement par page de résultats 
+				* simple_search_field : nom du champs de recherche simple
+				* suggest_alternate_query : active/desactive le suggestion de requetes alternatives en cas de non résultat
+				* fields_use_code_if_numeric : !!! ne pas modifier !!!
+		-->
+		
+		<page_size_allowed>10,20,50,100,200,500</page_size_allowed>
+		<page_size_default>100</page_size_default>
+		<!-- sort_default>numero_uai asc</sort_default -->
+		<fields_use_code_if_numeric>nature_uai,groupe_nature</fields_use_code_if_numeric>
+		<suggest_alternate_query>false</suggest_alternate_query>
+		
+		<stopwords>stopwords.txt</stopwords>
+		
+		<!-- 
+			Ce groupe de paramètres définie le fonctionnement des champs dans les ecrans de recherche
+		-->
+		
+		<fields>
+
+			<!-- 
+				Field 
+					L'attribut "name" correspond au nom dans la base BCE 
+					List 
+						mode : indique le type de liste et l'algorithme : 
+							1 - liste typeahead utilisation 
+								d'un champ ibce_ntoken et du requesthandler "/term" pour les suggestions 
+								(typiquement le champ de recherche global) 
+							2 - liste select2 supporte la 
+								pagination utilisation d'un champ ibce_string standard et du requesthandler 
+								"/select" pour les suggestions sur les champs mono-valeur sans code (typiquement 
+								les champ de recherche UAI, SIRET, FINESS) 
+							3 - liste select2 utilisation 
+								d'un champ *_combo standard et du requesthandler "/select" pour les suggestions 
+								(typiquement les champs de recherche Etat, Tutelle) 
+							4 - date 
+							11 - liste select2 supporte la pagination cas particulier du champ "nom" 
+							12 - liste select2 supporte la pagination cas particulier du champ "localisation" 
+							
+						nbcar : indique le nombre de caractère minimu a saisir avant ouverture de la liste
+						open : indique si la liste s'ouvre des l'arrivée du focus
+						page_size : indique le nombre d'éléments des paquets lus sur le serveur pour alimenter la liste. 
+						
+			-->
+			<field name='simple'>
+				<list>
+					<mode>1</mode>
+					<nbcar>2</nbcar>
+				</list>
+				<query>
+					<mode></mode>
+				</query>
+			</field>
+
+		</fields>
+				
+	</search>
+	
+</config>
