@@ -56,23 +56,17 @@ class ThemeMain extends ThemeBase {
 		// cache et robots
 		$res .=  $this->generateMeta() . "\n";
 		$res .= '<meta name="robots" content="index, nofollow" />' . "\n";		
+										
+		// Twitter bootstrap css
+		//$res .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">' . "\n";
+		$res .= '<link rel="stylesheet" href="' . $this->getBootStrapPath() . 'css/bootstrap.min.css" />' . "\n";
 		
-		// jQuery - pour la manipulation du dom et le parsing json sous ie7
-		$res .= '<script type="text/javascript" src="' . $this->getJsPath() . 'jquery-2.1.1.min.js"></script>' . "\n";
-		
-		// Twitter bootstrap
-		$res .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">' . "\n";
-		$res .= '<script type="text/javascript" src="' . $this->getBootStrapPath() . 'js/bootstrap.js"></script>' . "\n";
-								
-		// css 
+		// app css 
 		$res .= '<link rel="stylesheet" type="text/css" href="' . $this->getCssPath() . 'default.css" media="screen" />' . "\n";
 							
 		// css customize (à charger toujours en dernier)
 		$res .= '<link rel="stylesheet" type="text/css" href="' . $this->getCssPath() . 'customize.css" media="screen" />' . "\n";
 		
-		// script
-		$res .=  $this->generateScript() . "\n";
-
 		$res .= '</head>' . "\n";
 		
 		return $res;
@@ -94,19 +88,28 @@ class ThemeMain extends ThemeBase {
 		
 		$ajaxUrl = $this->_ajaxUrl;
 		$res .= <<<EOD
-			<script type="text/javascript"><!--
-				function getAjaxUrl() {
-					return '$ajaxUrl';
-				}
-      	    //--></script>
+<script type="text/javascript"><!--
+	function getAjaxUrl() {
+		return '$ajaxUrl';
+	}
+//--></script>
 EOD;
 		return $res;
 	}	
+	
 	function generateBody() {
 		$res  =  "\n";
 		$res .=  $this->generateHeader() . "\n";
+		
+		$class_name = get_class($this);
 	
-		$res .=  'Mettre en place la méthode "generateBody" dans la classe ' . get_class($this) . '<br/><br/><br/><br/>';
+		$res .= <<<EOD
+			<div class='row top30'>
+				<div class='col-md-12'>
+					Mettre en place la méthode "generateBody" dans la classe $class_name
+				</div>
+			</div>		
+EOD;
 		
 		$res .=  $this->generateFooter();
 		return $res;
@@ -123,10 +126,10 @@ EOD;
 		
 		$res .= <<<EOD
 			<div class='row'>
-				<div class='span6'>
+				<div class='col-md-2'>
 					<img src="$src" alt="$alt_img" title="$title_img">
 				</div>
-				<div class="span6 text-center">
+				<div class="col-md-10 text-center">
 					<h1>$title</h1>
 				</div>
 			</div>			
@@ -143,35 +146,42 @@ EOD;
 		$res  =  "\n";
 		$res .= '<body>' . "\n";
 		$res .= '<div id="wrap">' . "\n";
-		$res .= '<div id="main" class="container">' . "\n";
+		$res .= '    <div id="main" class="container">' . "\n";
 		return $res;
 	}
 
 	function generateBodyEnd() {
 		$res  = "\n";
-		
-		$res .= '</div><!-- /.container -->' . "\n";
+
+		$res .= '    </div><!-- /.container -->' . "\n";
 		$res .= '</div><!-- /.wrap -->' . "\n";
 				
+		$res .= '<!-- Le javascript' . "\n";
+		$res .= '================================================== -->' . "\n";
+		$res .= '<!-- Placed at the end of the document so the pages load faster -->' . "\n";
+			
+		// jQuery
+		$res .= '<script type="text/javascript" src="' . $this->getJsPath() . 'jquery-1.11.1.min.js"></script>' . "\n";
+		
+		// Twitter bootstrap
+		//$res .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">' . "\n";
+		$res .= '<script type="text/javascript" src="' . $this->getBootStrapPath() . 'js/bootstrap.js"></script>' . "\n";
+			
+		$res .= <<<EOD
+<script type="text/javascript"><!--
+	$(document).ready(function(){
+EOD;
+			
+		$res .= $this->_javascript . "\n";
+			
+		$res .= <<<EOD
+	});
+//--></script>
 
-			$res .= '<!-- Le javascript' . "\n";
-			$res .= '================================================== -->' . "\n";
-			$res .= '<!-- Placed at the end of the document so the pages load faster -->' . "\n";
-				
-				
-			$res .= <<<EOD
-				<script type="text/javascript"><!--
-					$(document).ready(function(){
 EOD;
-			
-			$res .= <<<EOD
-				$this->_javascript
-EOD;
-			
-			$res .= <<<EOD
-				});
-				//--></script>
-EOD;
+		
+		// script
+		$res .=  $this->generateScript() . "\n";
 		
 		$res .= '</body>';
 		return $res;
